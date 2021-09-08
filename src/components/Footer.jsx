@@ -1,8 +1,10 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
-import { HERO__BG, TEXT__SECONDARY } from '../constants/color'
+import { DARK__BG, HERO__BG, TEXT__DARK, TEXT__PRIMARY__BLACK } from '../constants/color'
+import DarkModeContext from '../context/darkMode'
 
 const Wrapper = styled.footer`
-    background-color: ${HERO__BG};
+    background-color: ${props => props.theme===true ? DARK__BG : HERO__BG};
 `
 
 const Container = styled.div`
@@ -27,6 +29,8 @@ const Title = styled.p`
     font-weight: bold;
     text-transform: capitalize;
     margin-bottom: 10px;
+    color: ${props => props.theme===true ? TEXT__DARK : TEXT__PRIMARY__BLACK};
+
 `
 
 const SubText = styled.p`
@@ -35,6 +39,8 @@ const SubText = styled.p`
     cursor: pointer;
     margin-bottom: 10px;
     font-size: 14px;
+    color: ${props => props.theme===true ? TEXT__DARK : TEXT__PRIMARY__BLACK};
+
 `
 
 const content= [
@@ -57,21 +63,24 @@ const content= [
 ]
 
 function Footer() {
+
+    const {dark} = useContext(DarkModeContext)
+
     return (
-        <Wrapper>
+        <Wrapper theme={dark}>
             <Container>
                 <Holder style={{flex: 4}}>
                     <div>
-                        <Title>Fiber</Title>
-                        <SubText>With Fiber, you can setup your won personal portfolio in minutes with a dozen of premade templates.</SubText>
+                        <Title theme={dark}>Fiber</Title>
+                        <SubText theme={dark}>With Fiber, you can setup your won personal portfolio in minutes with a dozen of premade templates.</SubText>
                     </div>
-                    <SubText style={{justifySelf:'flex-end'}}>Made with &hearts; in the Netherland.</SubText>
+                    <SubText style={{justifySelf:'flex-end'}} theme={dark}>Made with &hearts; in the Netherland.</SubText>
                 </Holder>
                 {content.map(con =>(
                     <Holder>
-                        <Title>{con.title}</Title>
+                        <Title theme={dark}>{con.title}</Title>
                         {con.option.map(opt => (
-                                <SubText>{opt}</SubText>
+                                <SubText theme={dark}>{opt}</SubText>
                         ))}
                     </Holder>
                 ))}

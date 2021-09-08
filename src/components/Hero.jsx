@@ -1,11 +1,13 @@
 import Navbar from "./Navbar";
 import styled from "styled-components";
-import { HERO__BG, TEXT__PRIMARY__BLACK, TEXT__SECONDARY } from "../constants/color";
+import { DARK__BG, HERO__BG, TEXT__DARK, TEXT__PRIMARY__BLACK } from "../constants/color";
 import { Button } from "./Button";
+import { useContext } from "react";
+import DarkModeContext from '../context/darkMode'
 
 const Wrapper = styled.header`
   height: 100vh;
-  background-color: ${HERO__BG};
+  background-color: ${props => props.theme===true ? DARK__BG : HERO__BG};
 `;
 
 const Container = styled.div`
@@ -61,7 +63,7 @@ const StarContainer = styled.div`
 
 const ReviewText = styled.p`
     text-transform: capitalize;
-    color: ${TEXT__PRIMARY__BLACK};
+    color: ${props => props.theme===true ? TEXT__DARK : TEXT__PRIMARY__BLACK};
     font-weight: 600;
 `
 
@@ -70,6 +72,7 @@ const PrimaryText = styled.h1`
     margin-bottom: 10px;
     font-weight: bolder;
     line-height: 1.3;
+    color: ${props => props.theme===true ? TEXT__DARK : TEXT__PRIMARY__BLACK};
 
     @media (max-width: 992px){
       font-size: 40px;
@@ -84,6 +87,7 @@ const SecondaryText = styled.p`
     margin-bottom: 10px;
     opacity: 0.5;
     line-height: 1.4;
+    color: ${props => props.theme===true ? TEXT__DARK : TEXT__PRIMARY__BLACK};
     
     @media (max-width: 992px){
       line-height: 1.6;
@@ -136,6 +140,8 @@ const Small = styled.small`
 `
 
 const Checkmark = styled.div`
+    color: ${props => props.theme===true ? TEXT__DARK : TEXT__PRIMARY__BLACK};
+
     @media (max-width: 768px) {
      display: flex;
      flex-direction: column;
@@ -143,8 +149,11 @@ const Checkmark = styled.div`
 `
 
 function Hero() {
+
+  const {dark} = useContext(DarkModeContext)
+
   return (
-    <Wrapper>
+    <Wrapper theme={dark}>
       <Container>
         <Navbar />
         <HeroContainer>
@@ -157,10 +166,10 @@ function Hero() {
                 <img src="/assets/star.svg" alt="star" />
                 <img src="/assets/star.svg" alt="star" />
               </StarContainer>
-              <ReviewText>rated 4.8/5 (243 reviews)</ReviewText>
+              <ReviewText theme={dark}>rated 4.8/5 (243 reviews)</ReviewText>
             </Review>
-            <PrimaryText>Create your own portfolio in minutes.</PrimaryText>
-            <SecondaryText>
+            <PrimaryText theme={dark} >Create your own portfolio in minutes.</PrimaryText>
+            <SecondaryText theme={dark} >
               With Fiber,you can setup your own personal portfolio in minutes
               with dozens of premade, beautiful templates.
             </SecondaryText>
@@ -168,7 +177,7 @@ function Hero() {
               <FreeTrailButton primary>start free trail</FreeTrailButton>
               <Link href="#">view examples</Link>
             </FreeTrailContainer>
-            <Checkmark>
+            <Checkmark theme={dark}>
               <Text>
                 <img src="/assets/Checkmark.svg" alt="check-mark" />
                 <Small>no credit card required</Small>

@@ -1,17 +1,8 @@
 import styled from 'styled-components'
 import { PRIMARY__BG, TEXT__SECONDARY } from '../constants/color'
 import { Button } from './Button'
+import cardHOC from './CardHOC'
 
-const Wrapper = styled.div`
-    padding: 20px;
-    border-radius: 5px;
-    border: 1px solid ${TEXT__SECONDARY};
-`
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-`
 const UserDetails = styled.div`
     display: flex;
     margin-bottom: 10px;
@@ -48,24 +39,22 @@ const UserButton = styled(Button)`
 
 function UserCards({image,username,amount,comment}) {
     return (
-        <Wrapper>
-            <Container>
-                <UserDetails>
-                    <UserImage src={image} alt={"user-logo"}/>
-                    <UserNameContainer>
-                        <UserName>{username}</UserName>
-                        <small>${amount}k in revenue</small>
-                    </UserNameContainer>
-                </UserDetails>
-                <UserComment>
-                    {comment}
-                </UserComment>
-                <UserButton>
-                    view {username.split(" ")[0]}'s portfolio
-                </UserButton>
-            </Container>
-        </Wrapper>
+        <>
+            <UserDetails>
+                <UserImage src={image} alt={"user-logo"}/>
+                <UserNameContainer>
+                    <UserName>{username}</UserName>
+                    <small>${amount}k in revenue</small>
+                </UserNameContainer>
+            </UserDetails>
+            <UserComment>
+                {comment}
+            </UserComment>
+            <UserButton>
+                view {username.split(" ")[0]}'s portfolio
+            </UserButton>
+        </>
     )
 }
 
-export default UserCards
+export default cardHOC(UserCards)

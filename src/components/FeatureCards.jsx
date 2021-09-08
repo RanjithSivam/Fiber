@@ -1,11 +1,6 @@
 import styled from 'styled-components'
 import { PRIMARY__BG } from '../constants/color'
-
-
-const Card = styled.div`
-    display: flex;
-    flex-direction: column;
-`
+import cardHOC from './CardHOC'
 
 const Icon = styled.img`
     color: ${PRIMARY__BG};
@@ -24,7 +19,7 @@ const SecondaryText = styled.p`
 
 function FeatureCards({icon,primaryText,secondaryText}) {
     return (
-        <Card>
+        <>
             <Icon src={icon} alt="feature-icon" />
             <PrimaryText>
                 {primaryText}
@@ -32,8 +27,8 @@ function FeatureCards({icon,primaryText,secondaryText}) {
             <SecondaryText>
                 {secondaryText}
             </SecondaryText>
-        </Card>
+        </>
     )
 }
 
-export default FeatureCards
+export default cardHOC(FeatureCards)

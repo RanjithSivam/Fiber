@@ -1,13 +1,15 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
-import { PRIMARY__BG, SECONDARY__BG, TEXT__PRIMARY__BLACK, TEXT__PRIMARY__WHITE } from '../constants/color'
+import { DARK__BG, PRIMARY__BG, SECONDARY__BG, TEXT__DARK, TEXT__PRIMARY__BLACK } from '../constants/color'
+import DarkModeContext from '../context/darkMode'
 import FeatureCards from './FeatureCards'
 import FeatureTrail from './FeatureTrail'
 import UserCards from './UserCards'
 
 const Wrapper = styled.div`
-    background-color: ${SECONDARY__BG};
+    background-color: ${props => props.theme===true ? TEXT__DARK : SECONDARY__BG};
     width: 100%;
-    margin: 50px 0;
+    padding: 50px 0;
 `
 
 const Container = styled.div`
@@ -24,7 +26,7 @@ const Small = styled.small`
 `
 
 const Title = styled.h1`
-    color: ${TEXT__PRIMARY__BLACK};
+    color: ${props => props.theme===true ? DARK__BG : TEXT__PRIMARY__BLACK};
     margin-bottom: 40px;
     max-width: 500px;
     font-size: 40px;
@@ -54,13 +56,16 @@ const UserComments = styled.div`
 `
 
 export default function Feature() {
+
+    const {dark} = useContext(DarkModeContext)
+
     return (
-        <Wrapper>
+        <Wrapper theme={dark}>
             <Container>
                 <Small>
                     why fiber?
                 </Small>
-                <Title>
+                <Title theme={dark}>
                     A good portfolio means good employability.
                 </Title>
                 <CardContainer>
